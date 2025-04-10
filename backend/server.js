@@ -23,6 +23,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Connect to MongoDB
+mongoose.set('strictQuery', false); // or true — depending on your preference
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/eternal_bonds';
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/eternal_bonds', {
   useNewUrlParser: true,
@@ -459,9 +460,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Serve React frontend in production
-if (process.env.NODE_ENV === 'production') {
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+//if (process.env.NODE_ENV === 'production') {
+//  app.get('*', (req, res) => {
+  //  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));//
   });
 }
 

@@ -21,7 +21,7 @@
     "type": "git",
     "url": "https://github.com/rhythm298/ai-samadhan.git"
   },
-  "author": "Your Name",
+  "author": "Rhythm Mehta",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",

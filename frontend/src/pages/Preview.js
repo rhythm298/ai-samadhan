@@ -171,29 +171,37 @@ const Preview = () => {
   <i className="fas fa-envelope"></i> Email PDF
 </button>
     
-const handleEmailSend = async () => {
-  const emailTo = prompt("Enter the email address to send invitation:");
-  if (!emailTo) return;
+import React, { useState, useEffect } from 'react';
 
-  const previewElement = document.getElementById("preview"); // or useRef
-  if (!previewElement) {
-    alert("Preview not found!");
-    return;
-  }
+const Preview = () => {
+  const [emailTo, setEmailTo] = useState('');
 
-  const htmlContent = previewElement.innerHTML;
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const email = prompt("Enter the email address to send invitation:");
+      setEmailTo(email);
+    }
+  }, []);
 
-  try {
-    await axios.post(`${process.env.REACT_APP_API_URL}/api/send-invitation-pdf`, {
-      htmlContent,
-      emailTo,
-    });
-    alert("Invitation sent successfully!");
-  } catch (error) {
-    console.error("Error sending invitation:", error);
-    alert("Failed to send invitation.");
-  }
+  const handleEmailSend = async () => {
+    if (!emailTo) return;
+    // Your email sending logic
+  };
+
+  return (
+    <div>
+      <input
+        type="email"
+        value={emailTo}
+        onChange={(e) => setEmailTo(e.target.value)}
+        placeholder="Enter email address"
+      />
+      <button onClick={handleEmailSend}>Send Invitation</button>
+    </div>
+  );
 };
+
+
 
 
 

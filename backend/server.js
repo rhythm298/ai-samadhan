@@ -466,7 +466,7 @@ app.listen(PORT, () => {
 });
 
 // In your server code (file could be in routes/api/weddingCards.js or similar)
-router.post('/wedding-cards', async (req, res) => {
+app.post('/wedding-cards', async (req, res) => {
   try {
     // Validate input
     const { theme, names, date, venue } = req.body;

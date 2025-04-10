@@ -93,6 +93,8 @@ const CardDesigner = ({ user }) => {
       }
     });
   };
+  <button onClick={() => handleLanguageToggle('en')}>Toggle English</button>
+<button onClick={() => handleLanguageToggle('hi')}>Toggle Hindi</button>
 
   const handleLanguageToggle = (lang) => {
     setDesign((prev) => {

@@ -146,6 +146,36 @@ const Preview = () => {
 >
   <i className="fas fa-envelope"></i> Email PDF
 </button>
+    
+const handleEmailSend = async () => {
+  const emailTo = prompt("Enter the email address to send invitation:");
+
+  if (!emailTo) return;
+
+  const htmlContent = document.querySelector('.invitation-preview').outerHTML;
+
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/send-invitation-pdf`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user?.token}`
+      },
+      body: JSON.stringify({ htmlContent, emailTo })
+    });
+
+    const data = await response.json();
+    if (data.message) {
+      alert('Invitation sent successfully!');
+    } else {
+      alert('Failed to send invitation');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Error sending invitation');
+  }
+};
+
 
 
       

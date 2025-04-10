@@ -173,32 +173,28 @@ const Preview = () => {
     
 const handleEmailSend = async () => {
   const emailTo = prompt("Enter the email address to send invitation:");
-
   if (!emailTo) return;
 
-  const htmlContent = document.querySelector('.invitation-preview').outerHTML;
+  const previewElement = document.getElementById("preview"); // or useRef
+  if (!previewElement) {
+    alert("Preview not found!");
+    return;
+  }
+
+  const htmlContent = previewElement.innerHTML;
 
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/send-invitation-pdf`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${user?.token}`
-      },
-      body: JSON.stringify({ htmlContent, emailTo })
+    await axios.post(`${process.env.REACT_APP_API_URL}/api/send-invitation-pdf`, {
+      htmlContent,
+      emailTo,
     });
-
-    const data = await response.json();
-    if (data.message) {
-      alert('Invitation sent successfully!');
-    } else {
-      alert('Failed to send invitation');
-    }
-  } catch (err) {
-    console.error(err);
-    alert('Error sending invitation');
+    alert("Invitation sent successfully!");
+  } catch (error) {
+    console.error("Error sending invitation:", error);
+    alert("Failed to send invitation.");
   }
 };
+
 
 
 

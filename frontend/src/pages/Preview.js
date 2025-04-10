@@ -139,6 +139,15 @@ const Preview = () => {
           </div>
         </div>
       </div>
+
+<button 
+  className="btn-secondary"
+  onClick={handleEmailSend}
+>
+  <i className="fas fa-envelope"></i> Email PDF
+</button>
+
+
       
       <div className="preview-actions">
         <button className="btn-secondary">

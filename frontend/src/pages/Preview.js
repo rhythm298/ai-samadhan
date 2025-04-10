@@ -1,38 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import axios from 'axios'; // Ensure axios is imported
 import '../styles/Preview.css';
-
-const [emailTo, setEmailTo] = useState('');
-const [showModal, setShowModal] = useState(false);
-
-const handleEmailSend = async () => {
-  setShowModal(true);
-};
-
-const sendEmail = async () => {
-  if (!emailTo) return;
-
-  try {
-    htmlContent: document.getElementById("preview").innerHTML;
-    await axios.post(`${process.env.REACT_APP_API_URL}/api/send-invitation-pdf`, {
-      
-      emailTo
-    });
-    alert("Invitation sent!");
-    setShowModal(false);
-  } catch (err) {
-    console.error("Send error", err);
-    alert("Failed to send");
-  }
-};
 
 const Preview = () => {
   const { id } = useParams();
+  const [emailTo, setEmailTo] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const [invitation, setInvitation] = useState(null);
   const [activeLanguage, setActiveLanguage] = useState('en');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   useEffect(() => {
     fetch(`/api/invitations/${id}`)
       .then(res => {
@@ -48,38 +27,60 @@ const Preview = () => {
         setLoading(false);
       });
   }, [id]);
-  
+
+  const handleEmailSend = async () => {
+    setShowModal(true);
+  };
+
+  const sendEmail = async () => {
+    if (!emailTo) return;
+
+    try {
+      const htmlContent = document.getElementById("preview").innerHTML;
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/send-invitation-pdf`, {
+        emailTo,
+        htmlContent,
+      });
+      alert("Invitation sent!");
+      setShowModal(false);
+    } catch (err) {
+      console.error("Send error", err);
+      alert("Failed to send");
+    }
+  };
+
   if (loading) return <div className="loading">Loading preview...</div>;
   if (error) return <div className="error">{error}</div>;
   if (!invitation) return <div className="not-found">Invitation not found</div>;
-  
+
   return (
     <div className="preview-page">
       <div className="preview-header">
         <h1>Invitation Preview</h1>
         <div className="language-tabs">
           {invitation.languages.map(lang => (
-            <button 
+            <button
               key={lang}
               className={activeLanguage === lang ? 'active' : ''}
               onClick={() => setActiveLanguage(lang)}
             >
-              {lang === 'en' ? 'English' : 
-               lang === 'ar' ? 'Arabic' : 
-               lang === 'hi' ? 'Hindi' : 
-               lang === 'es' ? 'Spanish' : 'Mandarin'}
+              {lang === 'en' && 'English'}
+              {lang === 'ar' && 'Arabic'}
+              {lang === 'hi' && 'Hindi'}
+              {lang === 'es' && 'Spanish'}
+              {lang === 'zh' && 'Mandarin'}
             </button>
           ))}
         </div>
       </div>
-      
+
       <div className="preview-container">
         <div className={`invitation-preview ${invitation.theme} ${invitation.colorPalette}`}>
           <div className="invitation-inner" dir={activeLanguage === 'ar' ? 'rtl' : 'ltr'}>
             <div className="invitation-header">
               <h2 className="names">{invitation.names[activeLanguage]}</h2>
             </div>
-            
+
             <div className="invitation-body">
               <p className="invitation-text">
                 {activeLanguage === 'en' && "Request the pleasure of your company at their wedding celebration"}
@@ -88,7 +89,7 @@ const Preview = () => {
                 {activeLanguage === 'es' && "Solicitan el honor de su presencia en la celebración de su boda"}
                 {activeLanguage === 'zh' && "诚挚邀请您参加我们的婚礼"}
               </p>
-              
+
               <div className="invitation-details">
                 <p className="date-time">
                   <span className="label">
@@ -100,14 +101,14 @@ const Preview = () => {
                   </span>
                   <span className="value">
                     {new Date(invitation.date).toLocaleDateString(
-                      activeLanguage === 'en' ? 'en-US' : 
-                      activeLanguage === 'ar' ? 'ar-EG' : 
-                      activeLanguage === 'hi' ? 'hi-IN' : 
+                      activeLanguage === 'en' ? 'en-US' :
+                      activeLanguage === 'ar' ? 'ar-EG' :
+                      activeLanguage === 'hi' ? 'hi-IN' :
                       activeLanguage === 'es' ? 'es-ES' : 'zh-CN'
                     )} | {invitation.time}
                   </span>
                 </p>
-                
+
                 <p className="venue">
                   <span className="label">
                     {activeLanguage === 'en' && "Venue:"}
@@ -118,7 +119,7 @@ const Preview = () => {
                   </span>
                   <span className="value">{invitation.venue[activeLanguage]}</span>
                 </p>
-                
+
                 {invitation.dressCode[activeLanguage] && (
                   <p className="dress-code">
                     <span className="label">
@@ -132,7 +133,7 @@ const Preview = () => {
                   </p>
                 )}
               </div>
-              
+
               <div className="rsvp-section">
                 <p className="rsvp-heading">
                   {activeLanguage === 'en' && "RSVP"}
@@ -141,7 +142,7 @@ const Preview = () => {
                   {activeLanguage === 'es' && "Confirmar asistencia"}
                   {activeLanguage === 'zh' && "请回复"}
                 </p>
-                
+
                 <p className="rsvp-contact">
                   <span className="phone">{invitation.rsvp.phone}</span>
                   {invitation.rsvp.website && (
@@ -150,7 +151,7 @@ const Preview = () => {
                 </p>
               </div>
             </div>
-            
+
             <div className="invitation-footer">
               <p className="footer-text">
                 {activeLanguage === 'en' && "We look forward to celebrating with you!"}
@@ -164,49 +165,6 @@ const Preview = () => {
         </div>
       </div>
 
-<button 
-  className="btn-secondary"
-  onClick={handleEmailSend}
->
-  <i className="fas fa-envelope"></i> Email PDF
-</button>
-    
-import React, { useState, useEffect } from 'react';
-
-const Preview = () => {
-  const [emailTo, setEmailTo] = useState('');
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const email = prompt("Enter the email address to send invitation:");
-      setEmailTo(email);
-    }
-  }, []);
-
-  const handleEmailSend = async () => {
-    if (!emailTo) return;
-    // Your email sending logic
-  };
-
-  return (
-    <div>
-      <input
-        type="email"
-        value={emailTo}
-        onChange={(e) => setEmailTo(e.target.value)}
-        placeholder="Enter email address"
-      />
-      <button onClick={handleEmailSend}>Send Invitation</button>
-    </div>
-  );
-};
-
-
-
-
-
-
-      
       <div className="preview-actions">
         <button className="btn-secondary">
           <i className="fas fa-edit"></i> Edit Design
@@ -221,6 +179,25 @@ const Preview = () => {
           <i className="fas fa-print"></i> Order Prints
         </button>
       </div>
+
+      <button
+        className="btn-secondary"
+        onClick={handleEmailSend}
+      >
+        <i className="fas fa-envelope"></i> Email PDF
+      </button>
+
+      {showModal && (
+        <div className="modal">
+          <input
+            type="email"
+            value={emailTo}
+            onChange={(e) => setEmailTo(e.target.value)}
+            placeholder="Enter email address"
+          />
+          <button onClick={sendEmail}>Send Invitation</button>
+        </div>
+      )}
     </div>
   );
 };

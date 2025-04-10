@@ -72,6 +72,25 @@ const CardDesigner = () => {
     customElements: [],
   });
 
+  // In your theme selection component's useEffect or componentDidMount
+useEffect(() => {
+  const themeOptions = document.querySelectorAll('.theme-option');
+  themeOptions.forEach(theme => {
+    theme.addEventListener('click', function() {
+      // Remove active class from all themes
+      themeOptions.forEach(t => {
+        t.classList.remove('active');
+      });
+      
+      // Add active class to selected theme
+      this.classList.add('active');
+      
+      // Store selected theme ID or data
+      const selectedThemeId = this.dataset.themeId;
+      setSelectedTheme(selectedThemeId); // If using React hooks
+    });
+  });
+}, []);
   // Load templates on component mount
   useEffect(() => {
     const loadTemplates = async () => {

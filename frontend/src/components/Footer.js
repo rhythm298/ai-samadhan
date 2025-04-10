@@ -13,6 +13,12 @@ const Footer = () => {
             <a href="#"><i className="fab fa-facebook"></i></a>
             <a href="#"><i className="fab fa-instagram"></i></a>
             <a href="#"><i className="fab fa-pinterest"></i></a>
+            <a href="/about">About</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+    <button onClick={() => {}} className="text-blue-500 underline">About</button>
+
+
           </div>
         </div>
         <div className="footer-section">

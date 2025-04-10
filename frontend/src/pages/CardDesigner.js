@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/CardDesigner.css';
-import React, { useState, useEffect } from 'react';
+
 
 const CardDesigner = () => {
   const [selectedTheme, setSelectedTheme] = useState(null);

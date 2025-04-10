@@ -8,6 +8,19 @@ const CardDesigner = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cardData, setCardData] = useState({});
   const [error, setError] = useState(null);
+    const navigate = useNavigate();
+
+  // State for AI suggestion feature
+  const [aiPrompt, setAiPrompt] = useState('');
+  const [aiResponse, setAiResponse] = useState('');
+  const [loadingAI, setLoadingAI] = useState(false);
+
+  // Main component state
+  const [step, setStep] = useState(1);
+  const [templates, setTemplates] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [loadingPreview, setLoadingPreview] = useState(false);
 
   // ...rest of your component
 };
@@ -53,20 +66,7 @@ const fallbackTemplates = [
   }
 ];
 
-const CardDesigner = () => {
-  const navigate = useNavigate();
 
-  // State for AI suggestion feature
-  const [aiPrompt, setAiPrompt] = useState('');
-  const [aiResponse, setAiResponse] = useState('');
-  const [loadingAI, setLoadingAI] = useState(false);
-
-  // Main component state
-  const [step, setStep] = useState(1);
-  const [templates, setTemplates] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [loadingPreview, setLoadingPreview] = useState(false);
 
   // Design state
   const [design, setDesign] = useState({

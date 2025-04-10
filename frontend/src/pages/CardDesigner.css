@@ -554,4 +554,13 @@ This combination will create a beautiful atmosphere that matches your vision. Th
   );
 };
 
+             import CardPreview from "@/components/card/CardPreview"; // Adjust path if needed
+
+...
+
+<div className="p-4">
+  <CardPreview />
+</div>
+
+
 export default CardDesigner;

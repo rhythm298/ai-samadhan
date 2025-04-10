@@ -60,6 +60,44 @@ app.post('/api/send-invitation-pdf', auth, async (req, res) => {
       }
     });
 
+    const { Configuration, OpenAIApi } = require('openai');
+
+const openai = new OpenAIApi(new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+}));
+
+app.post('/api/ai/suggest-style', async (req, res) => {
+  const { prompt } = req.body;
+
+  if (!prompt) return res.status(400).json({ error: 'Missing prompt' });
+
+  try {
+    const aiResponse = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{
+        role: "system",
+        content: `You are a wedding invitation designer assistant. Based on the couple's vibe, suggest: 
+        1) theme (e.g. traditional, modern, indian, western, middleEastern)
+        2) colorPalette (e.g. luxury, modern, cultural)
+        3) 1 short sentence describing suggested template style`
+      },
+      {
+        role: "user",
+        content: prompt
+      }],
+      temperature: 0.7,
+      max_tokens: 200
+    });
+
+    const content = aiResponse.data.choices[0].message.content;
+    res.json({ suggestion: content });
+  } catch (err) {
+    console.error("AI error:", err.response?.data || err.message);
+    res.status(500).json({ error: 'AI suggestion failed' });
+  }
+});
+
+
     // Send email
     const info = await transporter.sendMail({
       from: `"Eternal Bonds" <${process.env.EMAIL_USER}>`,

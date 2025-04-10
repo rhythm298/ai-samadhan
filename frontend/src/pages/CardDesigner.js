@@ -2,6 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/CardDesigner.css';
 
+const CardPreview = () => {
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="w-[400px] h-[600px] bg-white shadow-xl rounded-2xl p-6 text-center border border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+        <h2 className="text-2xl font-bold text-pink-600 dark:text-pink-400">Wedding Invitation</h2>
+        <p className="mt-4 text-gray-700 dark:text-gray-300">
+          You're invited to celebrate the wedding of
+        </p>
+        <h3 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">Aarya & Vihaan</h3>
+        <p className="mt-4 text-gray-600 dark:text-gray-400">on 15th June 2025</p>
+        <p className="text-gray-600 dark:text-gray-400">at The Grand Palace, Udaipur</p>
+
+        <div className="mt-6">
+          <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition">
+            View Full Card
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CardPreview;
 // Sample template data in case API fails
 const fallbackTemplates = [
   {
@@ -87,29 +110,7 @@ const CardDesigner = () => {
 
     
 
-const CardPreview = () => {
-  return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-[400px] h-[600px] bg-white shadow-xl rounded-2xl p-6 text-center border border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-pink-600 dark:text-pink-400">Wedding Invitation</h2>
-        <p className="mt-4 text-gray-700 dark:text-gray-300">
-          You're invited to celebrate the wedding of
-        </p>
-        <h3 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">Aarya & Vihaan</h3>
-        <p className="mt-4 text-gray-600 dark:text-gray-400">on 15th June 2025</p>
-        <p className="text-gray-600 dark:text-gray-400">at The Grand Palace, Udaipur</p>
 
-        <div className="mt-6">
-          <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition">
-            View Full Card
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default CardPreview;
 
         
         // Add active class to selected theme

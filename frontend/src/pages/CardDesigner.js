@@ -41,6 +41,21 @@ const CardDesigner = ({ user }) => {
       .catch(err => setError('Failed to load templates'));
   }, []);
 
+  <div className="ai-suggester">
+  <label>Describe Your Wedding Vibe:</label>
+  <input 
+    type="text"
+    value={aiPrompt}
+    onChange={(e) => setAiPrompt(e.target.value)}
+    placeholder="e.g. Royal pastel beachside at sunset"
+  />
+  <button onClick={handleAISuggest} disabled={loadingAI}>
+    {loadingAI ? 'Thinking...' : 'Get AI Suggestion'}
+  </button>
+
+  {aiResponse && <pre className="ai-result">{aiResponse}</pre>}
+</div>
+
   const handleAISuggest = async () => {
   if (!aiPrompt) return alert("Please enter a wedding vibe first.");
 

@@ -5,6 +5,8 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { body, validationResult } = require('express-validator');
+const dotenv = require('dotenv');
+const auth = require('./middleware/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -180,16 +182,16 @@ const Template = mongoose.model('Template', TemplateSchema);
 const Invitation = mongoose.model('Invitation', InvitationSchema);
 
 // Auth middleware
-const auth = (req, res, next) => {
-  try {
-    const token = req.header('Authorization').replace('Bearer ', '');
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.userId = decoded.userId;
-    next();
-  } catch (error) {
-    res.status(401).json({ error: 'Please authenticate' });
-  }
-};
+dotenv.config();
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+// ✅ Now you can use 'auth' middleware in your routes
+app.post('/api/send-invitation-pdf', auth, async (req, res) => {
+  // ...
+});
 
 // API Routes
 // User Registration

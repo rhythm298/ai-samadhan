@@ -40,6 +40,45 @@ const CardDesigner = ({ user }) => {
       })
       .catch(err => setError('Failed to load templates'));
   }, []);
+
+  const handleAISuggest = async () => {
+  if (!aiPrompt) return alert("Please enter a wedding vibe first.");
+
+  setLoadingAI(true);
+  setAiResponse('');
+
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/ai/suggest-style`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ prompt: aiPrompt })
+    });
+
+    const data = await response.json();
+    if (data.suggestion) {
+      setAiResponse(data.suggestion);
+
+      // Try auto-fill (basic parsing)
+      if (data.suggestion.includes("theme")) {
+        const themeMatch = data.suggestion.match(/theme:\s*(\w+)/i);
+        const paletteMatch = data.suggestion.match(/colorPalette:\s*(\w+)/i);
+        if (themeMatch) handleDesignChange('theme', themeMatch[1].toLowerCase());
+        if (paletteMatch) handleDesignChange('colorPalette', paletteMatch[1].toLowerCase());
+      }
+
+    } else {
+      setAiResponse("No suggestion received.");
+    }
+  } catch (err) {
+    console.error(err);
+    setAiResponse("Something went wrong.");
+  } finally {
+    setLoadingAI(false);
+  }
+};
+
   
   const handleDesignChange = (field, value, lang = null) => {
     if (lang) {

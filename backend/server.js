@@ -29,6 +29,57 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/eternal_b
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
+//
+const nodemailer = require('nodemailer');
+const puppeteer = require('puppeteer');
+
+app.post('/api/send-invitation-pdf', auth, async (req, res) => {
+  const { htmlContent, emailTo } = req.body;
+
+  if (!htmlContent || !emailTo) {
+    return res.status(400).json({ error: 'Missing data' });
+  }
+
+  try {
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+
+    const page = await browser.newPage();
+    await page.setContent(htmlContent);
+    const pdfBuffer = await page.pdf({ format: 'A4' });
+    await browser.close();
+
+    // Configure email transport
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    });
+
+    // Send email
+    const info = await transporter.sendMail({
+      from: `"Eternal Bonds" <${process.env.EMAIL_USER}>`,
+      to: emailTo,
+      subject: 'Your Wedding Invitation',
+      text: 'Please find your beautiful invitation attached!',
+      attachments: [{
+        filename: 'invitation.pdf',
+        content: pdfBuffer
+      }]
+    });
+
+    res.json({ message: 'Invitation sent', info });
+  } catch (err) {
+    console.error('PDF/email error:', err);
+    res.status(500).json({ error: 'Failed to send invitation' });
+  }
+});
+
+
 // Models
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },

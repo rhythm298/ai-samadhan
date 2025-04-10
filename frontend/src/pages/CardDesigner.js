@@ -24,7 +24,7 @@ const CardPreview = () => {
   );
 };
 
-export default CardPreview;
+
 // Sample template data in case API fails
 const fallbackTemplates = [
   {

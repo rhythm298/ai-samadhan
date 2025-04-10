@@ -184,7 +184,7 @@ const Invitation = mongoose.model('Invitation', InvitationSchema);
 // Auth middleware
 dotenv.config();
 
-const app = express();
+
 app.use(express.json());
 app.use(cors());
 

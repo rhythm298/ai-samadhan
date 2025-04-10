@@ -2,6 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import '../styles/Preview.css';
 
+const [emailTo, setEmailTo] = useState('');
+const [showModal, setShowModal] = useState(false);
+
+const handleEmailSend = async () => {
+  setShowModal(true);
+};
+
+const sendEmail = async () => {
+  if (!emailTo) return;
+
+  try {
+    await axios.post(`${process.env.REACT_APP_API_URL}/api/send-invitation-pdf`, {
+      htmlContent: /* your content */,
+      emailTo
+    });
+    alert("Invitation sent!");
+    setShowModal(false);
+  } catch (err) {
+    console.error("Send error", err);
+    alert("Failed to send");
+  }
+};
+
 const Preview = () => {
   const { id } = useParams();
   const [invitation, setInvitation] = useState(null);

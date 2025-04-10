@@ -573,4 +573,35 @@ This combination will create a beautiful atmosphere that matches your vision. Th
   );
 };
 
+// Replace with your actual API endpoint
+const handleGenerateCard = async (formData) => {
+  try {
+    setIsLoading(true); // If using React state for loading indicators
+    
+    const response = await fetch('/api/wedding-cards', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    });
+
+    // Check if response is OK before parsing
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Server error response:', errorText);
+      throw new Error(`Server error: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    // Handle successful response
+    setCardData(data);
+  } catch (error) {
+    console.error('Error generating card:', error);
+    setError('Failed to generate wedding card. Please try again.');
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 export default CardDesigner;

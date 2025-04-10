@@ -465,6 +465,30 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
+// In your server code (file could be in routes/api/weddingCards.js or similar)
+router.post('/wedding-cards', async (req, res) => {
+  try {
+    // Validate input
+    const { theme, names, date, venue } = req.body;
+    if (!theme || !names) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+    
+    // Your card generation logic
+    const cardData = await generateWeddingCard(req.body);
+    
+    // Return JSON response
+    return res.json(cardData);
+  } catch (error) {
+    console.error('Error generating wedding card:', error);
+    // Return error as JSON, not HTML
+    return res.status(500).json({ 
+      error: 'Failed to generate wedding card',
+      message: error.message
+    });
+  }
+});
+
 //testing
 app.get('/', (req, res) => {
   res.send('✅ Backend is working!');

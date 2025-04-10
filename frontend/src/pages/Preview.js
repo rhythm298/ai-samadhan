@@ -14,7 +14,7 @@ const sendEmail = async () => {
 
   try {
     await axios.post(`${process.env.REACT_APP_API_URL}/api/send-invitation-pdf`, {
-      htmlContent: /* your content */,
+      htmlContent: document.getElementById("preview").innerHTML;
       emailTo
     });
     alert("Invitation sent!");

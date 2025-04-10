@@ -2,30 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/CardDesigner.css';
 
-
-const CardDesigner = () => {
-  const [selectedTheme, setSelectedTheme] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [cardData, setCardData] = useState({});
-  const [error, setError] = useState(null); // ✅ Keep this one
-  const navigate = useNavigate();
-
-  // State for AI suggestion feature
-  const [aiPrompt, setAiPrompt] = useState('');
-  const [aiResponse, setAiResponse] = useState('');
-  const [loadingAI, setLoadingAI] = useState(false);
-
-  // Main component state
-  const [step, setStep] = useState(1);
-  const [templates, setTemplates] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [loadingPreview, setLoadingPreview] = useState(false);
-
-  // ...rest of your component
-};
-
-
-
 // Sample template data in case API fails
 const fallbackTemplates = [
   {
@@ -66,7 +42,23 @@ const fallbackTemplates = [
   }
 ];
 
+const CardDesigner = () => {
+  const [selectedTheme, setSelectedTheme] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [cardData, setCardData] = useState({});
+  const [error, setError] = useState(null); // ✅ Keep this one
+  const navigate = useNavigate();
 
+  // State for AI suggestion feature
+  const [aiPrompt, setAiPrompt] = useState('');
+  const [aiResponse, setAiResponse] = useState('');
+  const [loadingAI, setLoadingAI] = useState(false);
+
+  // Main component state
+  const [step, setStep] = useState(1);
+  const [templates, setTemplates] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadingPreview, setLoadingPreview] = useState(false);
 
   // Design state
   const [design, setDesign] = useState({
@@ -84,24 +76,25 @@ const fallbackTemplates = [
   });
 
   // In your theme selection component's useEffect or componentDidMount
-useEffect(() => {
-  const themeOptions = document.querySelectorAll('.theme-option');
-  themeOptions.forEach(theme => {
-    theme.addEventListener('click', function() {
-      // Remove active class from all themes
-      themeOptions.forEach(t => {
-        t.classList.remove('active');
+  useEffect(() => {
+    const themeOptions = document.querySelectorAll('.theme-option');
+    themeOptions.forEach(theme => {
+      theme.addEventListener('click', function() {
+        // Remove active class from all themes
+        themeOptions.forEach(t => {
+          t.classList.remove('active');
+        });
+        
+        // Add active class to selected theme
+        this.classList.add('active');
+        
+        // Store selected theme ID or data
+        const selectedThemeId = this.dataset.themeId;
+        setSelectedTheme(selectedThemeId); // If using React hooks
       });
-      
-      // Add active class to selected theme
-      this.classList.add('active');
-      
-      // Store selected theme ID or data
-      const selectedThemeId = this.dataset.themeId;
-      setSelectedTheme(selectedThemeId); // If using React hooks
     });
-  });
-}, []);
+  }, []);
+
   // Load templates on component mount
   useEffect(() => {
     const loadTemplates = async () => {
@@ -524,6 +517,37 @@ This combination will create a beautiful atmosphere that matches your vision. Th
     }
   };
 
+  // Helper function to generate card
+  const handleGenerateCard = async (formData) => {
+    try {
+      setIsLoading(true); 
+      
+      const response = await fetch('/api/wedding-cards', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      // Check if response is OK before parsing
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Server error response:', errorText);
+        throw new Error(`Server error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      // Handle successful response
+      setCardData(data);
+    } catch (error) {
+      console.error('Error generating card:', error);
+      setError('Failed to generate wedding card. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="card-designer">
       <div className="designer-header">
@@ -582,37 +606,6 @@ This combination will create a beautiful atmosphere that matches your vision. Th
       </div>
     </div>
   );
-};
-
-// Replace with your actual API endpoint
-const handleGenerateCard = async (formData) => {
-  try {
-    setIsLoading(true); // If using React state for loading indicators
-    
-    const response = await fetch('/api/wedding-cards', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
-    });
-
-    // Check if response is OK before parsing
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Server error response:', errorText);
-      throw new Error(`Server error: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    // Handle successful response
-    setCardData(data);
-  } catch (error) {
-    console.error('Error generating card:', error);
-    setError('Failed to generate wedding card. Please try again.');
-  } finally {
-    setIsLoading(false);
-  }
 };
 
 export default CardDesigner;

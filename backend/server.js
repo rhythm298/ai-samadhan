@@ -21,6 +21,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Connect to MongoDB
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/eternal_bonds';
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/eternal_bonds', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -377,3 +378,5 @@ if (process.env.NODE_ENV === 'production') {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+

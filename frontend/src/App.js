@@ -8,6 +8,9 @@ import Preview from './pages/Preview';
 import Pricing from './pages/Pricing';
 import Dashboard from './pages/Dashboard';
 import './styles/App.css';
+import Gallery from './components/Gallery';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   const [user, setUser] = useState(null);

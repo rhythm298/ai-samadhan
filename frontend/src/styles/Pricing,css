@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Quicksand:wght@400;600&display=swap');
+
+.pricing-section {
+  padding: 3rem 1rem;
+  background: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
+  color: #ffffff;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.pricing-title {
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  color: #ff80ab;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px #ff69b4;
+}
+
+.pricing-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.pricing-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(255, 182, 193, 0.3);
+  text-align: center;
+  transition: 0.3s ease-in-out;
+}
+
+.pricing-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+}
+
+.price {
+  font-size: 2rem;
+  color: #ff69b4;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.glow-button {
+  background: linear-gradient(90deg, #ff1493, #ff8da7);
+  padding: 0.7rem 1.5rem;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(255, 105, 180, 0.5);
+  transition: all 0.3s ease;
+}
+
+.glow-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #ff69b4, #ffc0cb);
+  box-shadow: 0 6px 25px rgba(255, 105, 180, 0.8);
+}

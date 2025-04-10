@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/CardDesigner.css';
+const [aiPrompt, setAiPrompt] = useState('');
+const [aiResponse, setAiResponse] = useState('');
+const [loadingAI, setLoadingAI] = useState(false);
+
 
 const CardDesigner = ({ user }) => {
   const navigate = useNavigate();

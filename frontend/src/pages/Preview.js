@@ -202,7 +202,7 @@ const Preview = () => {
   );
 };
 
-fetch(`${process.env.REACT_APP_API_URL}/api/invitations/${id}`)
+fetch(`${process.env.REACT_APP_API_URL}/api/invitations/$demo`)
 
 
 export default Preview;

@@ -7,8 +7,8 @@ const CardDesigner = () => {
   const [selectedTheme, setSelectedTheme] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [cardData, setCardData] = useState({});
-  const [error, setError] = useState(null);
-    const navigate = useNavigate();
+  const [error, setError] = useState(null); // ✅ Keep this one
+  const navigate = useNavigate();
 
   // State for AI suggestion feature
   const [aiPrompt, setAiPrompt] = useState('');
@@ -19,11 +19,11 @@ const CardDesigner = () => {
   const [step, setStep] = useState(1);
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [loadingPreview, setLoadingPreview] = useState(false);
 
   // ...rest of your component
 };
+
 
 
 // Sample template data in case API fails

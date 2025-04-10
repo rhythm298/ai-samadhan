@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/CardDesigner.css';
 
+             import CardPreview from "@/components/card/CardPreview"; // Adjust path if needed
+
+...
+
+<div className="p-4">
+  <CardPreview />
+</div>
+
+
 // Sample template data in case API fails
 const fallbackTemplates = [
   {
@@ -554,13 +563,6 @@ This combination will create a beautiful atmosphere that matches your vision. Th
   );
 };
 
-             import CardPreview from "@/components/card/CardPreview"; // Adjust path if needed
-
-...
-
-<div className="p-4">
-  <CardPreview />
-</div>
 
 
 export default CardDesigner;

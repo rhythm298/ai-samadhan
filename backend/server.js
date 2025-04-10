@@ -459,12 +459,6 @@ if (process.env.NODE_ENV !== 'production') {
   seedData();
 }
 
-// Serve React frontend in production
-//if (process.env.NODE_ENV === 'production') {
-//  app.get('*', (req, res) => {
-  //  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));//
-  });
-}
 
 // Start server
 app.listen(PORT, () => {

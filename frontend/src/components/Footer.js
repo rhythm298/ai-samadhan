@@ -10,17 +10,18 @@ const Footer = () => {
           <h3>Eternal Bonds</h3>
           <p>Creating memorable wedding invitations that reflect your unique love story.</p>
           <div className="social-icons">
-            <a href="#"><i className="fab fa-facebook"></i></a>
-            <a href="#"><i className="fab fa-instagram"></i></a>
-            <a href="#"><i className="fab fa-pinterest"></i></a>
-<button onClick={() => alert('Coming soon!')}>About</button>
-<button onClick={() => alert('Coming soon!')}>Contact</button>
-<button onClick={() => alert('Coming soon!')}>Privacy</button>
-
-
-
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-facebook"></i>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-instagram"></i>
+            </a>
+            <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-pinterest"></i>
+            </a>
           </div>
         </div>
+
         <div className="footer-section">
           <h3>Quick Links</h3>
           <ul>
@@ -28,8 +29,12 @@ const Footer = () => {
             <li><Link to="/design">Create Invitation</Link></li>
             <li><Link to="/gallery">Gallery</Link></li>
             <li><Link to="/pricing">Pricing</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/privacy">Privacy Policy</Link></li>
           </ul>
         </div>
+
         <div className="footer-section">
           <h3>Contact Us</h3>
           <p>Email: info@eternalbonds.com</p>
@@ -37,6 +42,7 @@ const Footer = () => {
           <p>Address: 123 Wedding Ave, Suite 100, New York, NY 10001</p>
         </div>
       </div>
+
       <div className="footer-bottom">
         <p>&copy; {new Date().getFullYear()} Eternal Bonds. All Rights Reserved.</p>
       </div>
@@ -45,3 +51,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

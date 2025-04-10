@@ -5,7 +5,6 @@ import '../styles/CardDesigner.css';
 const CardDesigner = ({ user }) => {
   const navigate = useNavigate();
 
-  // States
   const [aiPrompt, setAiPrompt] = useState('');
   const [aiResponse, setAiResponse] = useState('');
   const [loadingAI, setLoadingAI] = useState(false);
@@ -29,7 +28,6 @@ const CardDesigner = ({ user }) => {
     customElements: [],
   });
 
-  // Fetch templates on load
   useEffect(() => {
     fetch('/api/templates')
       .then((res) => res.json())
@@ -59,7 +57,6 @@ const CardDesigner = ({ user }) => {
       if (data.suggestion) {
         setAiResponse(data.suggestion);
 
-        // Try to parse basic structure from AI
         const themeMatch = data.suggestion.match(/theme:\s*(\w+)/i);
         const paletteMatch = data.suggestion.match(/colorPalette:\s*(\w+)/i);
         if (themeMatch) handleDesignChange('theme', themeMatch[1].toLowerCase());
@@ -93,8 +90,6 @@ const CardDesigner = ({ user }) => {
       }
     });
   };
-  <button onClick={() => handleLanguageToggle('en')}>Toggle English</button>
-<button onClick={() => handleLanguageToggle('hi')}>Toggle Hindi</button>
 
   const handleLanguageToggle = (lang) => {
     setDesign((prev) => {
@@ -155,6 +150,7 @@ const CardDesigner = ({ user }) => {
             </div>
           </div>
         );
+
       case 2:
         return (
           <div className="design-step">
@@ -209,16 +205,23 @@ const CardDesigner = ({ user }) => {
 
               {aiResponse && <pre className="ai-result">{aiResponse}</pre>}
             </div>
+
+            <div className="language-toggle">
+              <h3>Toggle Languages</h3>
+              <button onClick={() => handleLanguageToggle('en')}>Toggle English</button>
+              <button onClick={() => handleLanguageToggle('hi')}>Toggle Hindi</button>
+            </div>
           </div>
         );
+
       case 3:
         return (
           <div className="design-step">
             <h2>Add Your Details</h2>
-            {/* Details Form code here — omitted for brevity since unchanged */}
             <p>Details form content here...</p>
           </div>
         );
+
       default:
         return <div>Unknown step</div>;
     }

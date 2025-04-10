@@ -1,12 +1,36 @@
-/* Footer.css - Gradient Glow Footer */
-
+/* Footer.css - Elegant Wedding Theme Footer */
 .footer {
-  background: linear-gradient(135deg, #1f1c2c, #928dab);
-  color: #ffffff;
-  padding: 2rem;
+  background: linear-gradient(135deg, #f9f5f0, #e8d7c4);
+  color: #333;
+  padding: 3rem 2rem 2rem;
   text-align: center;
   position: relative;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -8px 25px rgba(193, 154, 107, 0.15);
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(166, 124, 72, 0), rgba(166, 124, 72, 0.8), rgba(166, 124, 72, 0));
+}
+
+.footer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 60 L57 57 M60 60 L63 57 M60 60 L57 63 M60 60 L63 63' stroke='%23c19a6b' stroke-width='0.5' stroke-opacity='0.07'/%3E%3C/svg%3E");
+  background-size: 30px 30px;
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .footer-content {
@@ -14,20 +38,37 @@
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: start;
-  gap: 2rem;
-  max-width: 1100px;
+  gap: 3rem;
+  max-width: 1200px;
   margin: auto;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .footer-column {
-  flex: 1 1 200px;
+  flex: 1 1 220px;
 }
 
 .footer-column h4 {
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-  color: #ffb6c1;
+  margin-bottom: 1.2rem;
+  font-size: 1.2rem;
+  color: #a67c48;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 0.8rem;
+}
+
+.footer-column h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 1px;
+  background: rgba(166, 124, 72, 0.5);
 }
 
 .footer-column ul {
@@ -36,23 +77,150 @@
 }
 
 .footer-column ul li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.7rem;
 }
 
 .footer-column ul li a {
-  color: #eee;
+  color: #666;
   text-decoration: none;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-column ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #a67c48;
+  transition: width 0.3s ease;
 }
 
 .footer-column ul li a:hover {
-  color: #ff80ab;
+  color: #a67c48;
+}
+
+.footer-column ul li a:hover::after {
+  width: 100%;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(166, 124, 72, 0.1);
+  color: #a67c48;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: rgba(166, 124, 72, 0.9);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(166, 124, 72, 0.3);
+}
+
+.footer-logo {
+  margin-bottom: 1rem;
+}
+
+.footer-logo img {
+  height: 40px;
+}
+
+.footer-logo span {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8rem;
+  color: #a67c48;
 }
 
 .footer-bottom {
   margin-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 1rem;
+  border-top: 1px solid rgba(166, 124, 72, 0.1);
+  padding-top: 1.5rem;
   font-size: 0.9rem;
-  opacity: 0.7;
+  color: #888;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-newsletter {
+  margin-top: 1.5rem;
+}
+
+.newsletter-form {
+  display: flex;
+  max-width: 400px;
+  margin: 1rem auto;
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(166, 124, 72, 0.3);
+  border-radius: 4px 0 0 4px;
+  font-family: 'Montserrat', sans-serif;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.newsletter-input:focus {
+  outline: none;
+  border-color: #a67c48;
+}
+
+.newsletter-btn {
+  background: linear-gradient(135deg, #c19a6b, #d4b254);
+  color: white;
+  border: none;
+  padding: 0 1.2rem;
+  border-radius: 0 4px 4px 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.newsletter-btn:hover {
+  background: linear-gradient(135deg, #b08a5c, #c5a346);
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 1.5rem 1.5rem;
+  }
+  
+  .footer-content {
+    gap: 2rem;
+  }
+  
+  .footer-column {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .newsletter-input,
+  .newsletter-btn {
+    width: 100%;
+    border-radius: 4px;
+  }
 }

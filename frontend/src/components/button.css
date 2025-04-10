@@ -1,0 +1,324 @@
+/* Button.css - Elegant Wedding Invitation Maker */
+:root {
+  --primary-color: #9a7fb8;
+  --primary-dark: #7e648f;
+  --primary-light: #b89fd0;
+  --accent-color: #e0c5e8;
+  --light-color: #f9f6fb;
+  --dark-color: #3d2d4d;
+  --gray-color: #7a7085;
+  --success-color: #6bb88a;
+  --danger-color: #d25e5e;
+  --warning-color: #e2b458;
+  --info-color: #5e91d2;
+  --border-radius: 10px;
+  --box-shadow: 0 8px 30px rgba(154, 127, 184, 0.15);
+  --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', serif;
+  --font-sans: 'Montserrat', 'Open Sans', sans-serif;
+}
+
+/* Base Button Styles */
+.button {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding: 0.875rem 1.75rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  outline: none;
+}
+
+/* Primary Button */
+.button-primary {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: white;
+  box-shadow: 0 5px 15px rgba(154, 127, 184, 0.4);
+}
+
+.button-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(154, 127, 184, 0.5);
+}
+
+.button-primary:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(154, 127, 184, 0.4);
+}
+
+/* Secondary Button */
+.button-secondary {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.button-secondary:hover {
+  background-color: rgba(154, 127, 184, 0.08);
+  transform: translateY(-3px);
+}
+
+.button-secondary:active {
+  transform: translateY(-1px);
+}
+
+/* Tertiary Button (Text) */
+.button-tertiary {
+  background-color: transparent;
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  position: relative;
+}
+
+.button-tertiary::after {
+  content: '';
+  position: absolute;
+  bottom: 0.25rem;
+  left: 1rem;
+  right: 1rem;
+  height: 1px;
+  background-color: var(--primary-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: right;
+}
+
+.button-tertiary:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Button Sizes */
+.button-small {
+  font-size: 0.875rem;
+  padding: 0.625rem 1.25rem;
+}
+
+.button-large {
+  font-size: 1.125rem;
+  padding: 1.125rem 2.25rem;
+}
+
+/* Outline Button */
+.button-outline {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.button-outline:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Full Width Button */
+.button-full {
+  width: 100%;
+  display: block;
+}
+
+/* Button with Icon */
+.button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.button-icon-only {
+  padding: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rounded Button */
+.button-rounded {
+  border-radius: 50px;
+}
+
+/* Pill Button */
+.button-pill {
+  border-radius: 9999px;
+}
+
+/* Status Buttons */
+.button-success {
+  background: linear-gradient(135deg, var(--success-color) 0%, #58a077 100%);
+  color: white;
+  box-shadow: 0 5px 15px rgba(107, 184, 138, 0.4);
+}
+
+.button-danger {
+  background: linear-gradient(135deg, var(--danger-color) 0%, #c04a4a 100%);
+  color: white;
+  box-shadow: 0 5px 15px rgba(210, 94, 94, 0.4);
+}
+
+.button-warning {
+  background: linear-gradient(135deg, var(--warning-color) 0%, #d1a346 100%);
+  color: white;
+  box-shadow: 0 5px 15px rgba(226, 180, 88, 0.4);
+}
+
+.button-info {
+  background: linear-gradient(135deg, var(--info-color) 0%, #4a78b3 100%);
+  color: white;
+  box-shadow: 0 5px 15px rgba(94, 145, 210, 0.4);
+}
+
+/* Status Hover Effects */
+.button-success:hover,
+.button-danger:hover,
+.button-warning:hover,
+.button-info:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.05);
+}
+
+/* Disabled Button */
+.button:disabled,
+.button.disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none !important;
+}
+
+/* Loading Button */
+.button-loading {
+  position: relative;
+  color: transparent !important;
+}
+
+.button-loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: calc(50% - 10px);
+  left: calc(50% - 10px);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Group Buttons */
+.button-group {
+  display: inline-flex;
+}
+
+.button-group .button:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.button-group .button:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Elegant Wedding Invitation Specific Button */
+.wedding-cta {
+  position: relative;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: white;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  font-weight: 500;
+  border-radius: 50px;
+  box-shadow: 0 5px 15px rgba(154, 127, 184, 0.4);
+  overflow: hidden;
+}
+
+.wedding-cta::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 1px solid white;
+  border-radius: 50px;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.wedding-cta:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(154, 127, 184, 0.5);
+}
+
+/* Ghost Button with Elegant Border */
+.ghost-button {
+  background-color: transparent;
+  border: 1px solid var(--primary-light);
+  color: var(--primary-color);
+  padding: 0.75rem 1.5rem;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: color 0.5s ease;
+}
+
+.ghost-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: var(--primary-color);
+  transition: width 0.5s ease;
+  z-index: -1;
+}
+
+.ghost-button:hover {
+  color: white;
+}
+
+.ghost-button:hover::before {
+  width: 100%;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .button-large {
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+  }
+  
+  .button-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .wedding-cta {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+  }
+}
